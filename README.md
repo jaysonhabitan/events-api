@@ -107,7 +107,7 @@ After logging in you will get an `access_token` that is included in the response
 ```
 Authorization: Bearer 2|O5pm6Hjl7jPCxXEBsATKVxeuFo8XO4lG8u1PASF7
 ```
-Before calling any API endpoints, ensure you set the headers correctly.
+Before calling any API endpoints, ensure you set the headers correctly. \
 HEADERS: 
 ```
 Authorization: Bearer <YOUR_ACCESS_TOKEN>
@@ -120,15 +120,15 @@ Content-Type: application/json
 Method: `GET` \
 End point:  `/api/v1/events` \
 Available query param filters:
-* ```from```
-    -- Should be in YYYY-MM-DD HH:MM format
-    -- ex. from=2020-01-01 00:00
+* ```from```  
+  \ --Should be in YYYY-MM-DD HH:MM format
+  \ -- ex. from=2020-01-01 00:00
 * ```to```
-    -- Should be in YYYY-MM-DD HH:MM format
-    -- ex. to=2020-01-01 00:00
+  \ -- Should be in YYYY-MM-DD HH:MM format
+  \ -- ex. to=2020-01-01 00:00
 * ```invitees```
-    -- Should be a string of user_ids separated by a comma (,)
-    -- ex. invitees=1,2,3 
+  \ -- Should be a string of user_ids separated by a comma (,)
+  \ -- ex. invitees=1,2,3 
 
 Response: 
 ```sh
