@@ -71,7 +71,7 @@ Assuming that you already have a running development server, we can now use it a
 #### 1. Authentication
 Before we can call any API endpoints, we must first log in using valid credentials. We may log in using the following endpoint: 
 
-##### Login API:
+##### `Login`:
 Method: `POST`  \
 End point:  `/api/v1/login`  \
 Headers: 
@@ -125,7 +125,6 @@ Available query param filters:
     -- Should be a string of user_ids separated by a comma (,)
     -- ex. invitees=1,2,3 
 
- \
 Response: 
 ```sh
 HTTP_STATUS: 200 OK
@@ -158,8 +157,8 @@ DATA: {
     ]
 }
 ```
-\
-###### 2.2.`GET A SINGLE EVENT DATA` \
+
+2.2.`GET A SINGLE EVENT DATA` \
 Method: `GET` \
 End point:  `/api/v1/events/{eventId}` \
 Response: 
@@ -181,8 +180,8 @@ DATA: {
     }
 }
 ```
-\
-###### 2.3.`CREATE AN EVENT` \
+
+2.3.`CREATE AN EVENT` \
 Method: `POST` \
 End point:  `/api/v1/events` \
 Request body:
@@ -216,8 +215,8 @@ DATA: {
     "message": "Event created successfully!"
 }
 ```
-\
-###### 2.4.`UPDATE AN EVENT` \
+
+2.4.`UPDATE AN EVENT` \
 Method: `PUT` \
 End point:  `/api/v1/events/{eventId}` \
 Request body:
@@ -231,8 +230,8 @@ Request body:
     "invitees": [1,2,3]
 }
 ```
-\
-###### 2.5.`PATCH AN EVENT`\
+
+2.5.`PATCH AN EVENT`\
 Method: `PATCH`\
 End point:  `/api/v1/events/{eventId}` \
 Request body:
@@ -249,8 +248,8 @@ DATA: {
     "message": "Event updated successfully."
 }
 ```
-\
-###### 2.6.`DELETE AN EVENT` \
+
+2.6.`DELETE AN EVENT` 
 Method: `DELETE` \ 
 End point:  `/api/v1/events/{eventId}` \
 Response: 
