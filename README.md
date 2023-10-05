@@ -279,9 +279,6 @@ DB_PORT=3306
 DB_DATABASE=<YOUR_SQLITE_TESTING_DB_FILE_PATH>
 DB_USERNAME=root
 DB_PASSWORD=
-
-# app token name for sanctum
-APP_TOKEN_NAME="events-api-token"
 ```
 #### 2. Run the unit test
 After setting up the .env.testing file we can now run the following command to run the unit test:
