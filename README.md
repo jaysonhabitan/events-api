@@ -158,7 +158,8 @@ DATA: {
     ]
 }
 ```
-2.2.`GET A SINGLE EVENT DATA` \
+\
+###### 2.2.`GET A SINGLE EVENT DATA` \
 Method: `GET` \
 End point:  `/api/v1/events/{eventId}` \
 Response: 
@@ -180,7 +181,8 @@ DATA: {
     }
 }
 ```
-2.3.`CREATE AN EVENT` \
+\
+###### 2.3.`CREATE AN EVENT` \
 Method: `POST` \
 End point:  `/api/v1/events` \
 Request body:
@@ -214,7 +216,8 @@ DATA: {
     "message": "Event created successfully!"
 }
 ```
-2.3.`UPDATE AN EVENT` \
+\
+###### 2.4.`UPDATE AN EVENT` \
 Method: `PUT` \
 End point:  `/api/v1/events/{eventId}` \
 Request body:
@@ -228,7 +231,8 @@ Request body:
     "invitees": [1,2,3]
 }
 ```
-2.3.`PATCH AN EVENT`\
+\
+###### 2.5.`PATCH AN EVENT`\
 Method: `PATCH`\
 End point:  `/api/v1/events/{eventId}` \
 Request body:
@@ -245,7 +249,8 @@ DATA: {
     "message": "Event updated successfully."
 }
 ```
-2.3.`DELETE AN EVENT` \
+\
+###### 2.6.`DELETE AN EVENT` \
 Method: `DELETE` \ 
 End point:  `/api/v1/events/{eventId}` \
 Response: 
@@ -256,7 +261,6 @@ DATA: {}
 ```
 ---
 ## Unit Test
-
 
 #### 1. Setup the unit test .env-testing file
 > Before we run the unit test, it is recommended to create a separate .env file for the unit test. But `you can skip this part`, just be aware that it will use your .env database as a default and will surely wipe out your data.
