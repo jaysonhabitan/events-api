@@ -29,6 +29,7 @@ class EventController extends Controller
      * Create a new controller instance.
      *
      * @param  EventService  $eventService
+     *
      * @return void
      */
     public function __construct(EventService $eventService)
@@ -39,7 +40,7 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -76,7 +77,8 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateEventRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateEventRequest $request): JsonResponse
@@ -129,9 +131,10 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateEventRequest $request
      * @param  Event $event
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
@@ -172,7 +175,8 @@ class EventController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Event  $event
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Event $event)
     {
