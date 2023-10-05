@@ -102,7 +102,7 @@ After logging in you will get an `access_token` that is included in the response
 ```
 Authorization: Bearer 2|O5pm6Hjl7jPCxXEBsATKVxeuFo8XO4lG8u1PASF7
 ```
-Before calling any API endpoints, ensure you set the headers correctly.
+Before calling any API endpoints, ensure you set the headers correctly. \
 HEADERS: 
 ```
 Authorization: Bearer <YOUR_ACCESS_TOKEN>
