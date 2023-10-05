@@ -116,7 +116,7 @@ Content-Type: application/json
 ```
 ---
 ## Event Resource API
-> Notes to take: before using the API: I assumed that the values of the invitees are users ID so whenever we will update or insert and invitee, make sure that it exists on the DB. In this application I pre-seeded a five(5) users, so user_id 1,2,3,4, and 5 are the only valid value(s) in the invitees field, unless you create another user by running a UserFactory.
+> ***Notes to take before using the API:*** I assumed that the values of the invitees are user IDs so whenever we update or insert an invitee, make sure that it exists on the DB. In this application, I pre-seeded five(5) users, so user_id 1,2,3,4, and 5 are the only valid value(s) in the `invitees` field unless you create another user by running a UserFactory.
 
 2.1.`GET ALL EVENTS DATA` \
 Method: `GET` \
