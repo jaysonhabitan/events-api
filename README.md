@@ -293,3 +293,58 @@ php artisan test --env=testing
 * Event - The model for events table
 * EventUser - The pivot model and table between event and user model
 * Frequency - The model for frequency table.
+---
+## Application folder architecture
+```
+├── app 
+│   ├── Console
+│   ├── Enum - This is where the enumarables are stored.
+│   ├── Exceptions
+│   ├── Filters - This is where the filter function for GET request are stored.
+│   │   └── V1
+│   ├── Http
+│   │   ├── Controllers
+│   │   │   └── Api  - This is where  the  resources controllers are stored.
+│   │   │       └── V1
+│   │   ├── Middleware
+│   │   ├── Requests - This is where the request validations are stored.
+│   │   │   └── V1
+│   │   └── Resources - This is where the models resource format are stored.
+│   │       └── V1
+│   ├── Models
+│   ├── Observers - I added an observer for detaching the many-many relationship for event model when deleting an event data.
+│   ├── Providers
+│   ├── Services -  This is  where the model's service(s) are stored.
+│   │   └── V1
+│   └── Tools - This is where we store the API tools.
+├── bootstrap
+│   └── cache
+├── config
+├── database
+│   ├── factories
+│   ├── migrations
+│   └── seeders
+├── public
+├── resources
+│   ├── css
+│   ├── js
+│   ├── lang
+│   │   └── en
+│   └── views
+├── routes
+├── storage
+│   ├── app
+│   │   └── public
+│   ├── framework
+│   │   ├── cache
+│   │   │   └── data
+│   │   ├── sessions
+│   │   ├── testing
+│   │   └── views
+│   └── logs
+└── tests
+    └── Feature
+        └── Api - This is where the unit tests are stored.
+            └── V1 
+```
+---
