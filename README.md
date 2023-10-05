@@ -96,13 +96,18 @@ Response:
     "access_token": "2|O5pm6Hjl7jPCxXEBsATKVxeuFo8XO4lG8u1PASF7"
 }
 ```
+#### Available credential to use in the login
+```sh
+email: api_user1@test.com
+password: pass1234
+```
 
 #### 2. Using available API endpoints
 After logging in you will get an `access_token` that is included in the response, include it in the headers to access protected API routes like so:
 ```
 Authorization: Bearer 2|O5pm6Hjl7jPCxXEBsATKVxeuFo8XO4lG8u1PASF7
 ```
-Before calling any API endpoints, ensure you set the headers correctly. \
+Before calling any API endpoints, ensure you set the headers correctly.
 HEADERS: 
 ```
 Authorization: Bearer <YOUR_ACCESS_TOKEN>
