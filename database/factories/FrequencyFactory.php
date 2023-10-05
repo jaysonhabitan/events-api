@@ -20,6 +20,13 @@ class FrequencyFactory extends Factory
         ];
     }
 
+    /**
+     * Indicate that the name should be user-defined.
+     *
+     * @param string $id
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
     public function withName(string $name) {
         return $this->state(function (array $attributes) use ($name) {
             return [

@@ -25,8 +25,16 @@ class EventFactory extends Factory
         ];
     }
 
-    public function withFrequencyId(string $id) {
-        return $this->state(function (array $attributes) use ($id) {
+    /**
+     * Indicate that the frequency_id should be user-defined.
+     *
+     * @param string $id
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withFrequencyId(string $id)
+    {
+        return $this->state(function (array $_) use ($id) {
             return [
                 'frequency_id' => $id
             ];
