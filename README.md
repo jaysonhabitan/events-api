@@ -23,7 +23,7 @@ Now we initialize the application by entering the following commands:
 # copy environment variables file template
 cp .env.example .env
 
-# generate application key
+# generate an application key
 php artisan key:generate
 ```
 Next, open your newly created .env file and add or modify the following configurations:
@@ -54,22 +54,22 @@ We will only use the default local environment hosting of Laravel, run this comm
 ``` 
 php artisan serve 
 ```
-After running the command you should see the Laravel's development server, and it usually runs on:
+After running the command you should see Laravel's development server, and it usually runs on:
 ``` sh 
 http://127.0.0.1:8000
 ```
-Otherwise use whatever Laravel gave you.
+Otherwise, use whatever Laravel gave you.
 
 ---
 
 ### How to use the application:
 
-Assuming that you already have a running development server, we can now use it as a base url and use it to call available API endpoints within the application.
+Assuming that you already have a running development server, we can now use it as a base URL and use it to call available API endpoints within the application.
 
 #### REST API Routes
 ---
 #### 1. Authentication
-Before we can call any API endpoints, we must first login using a valid credentials. We may login using the following endpoint: 
+Before we can call any API endpoints, we must first log in using valid credentials. We may log in using the following endpoint: 
 
 ##### Login API:
 Method: `POST`
@@ -102,7 +102,7 @@ After logging in you will get an `access_token` that is included in the response
 ```
 Authorization: Bearer 2|O5pm6Hjl7jPCxXEBsATKVxeuFo8XO4lG8u1PASF7
 ```
-Before proceeding to call any API endpoints make sure you set the headers correctly.
+Before calling any API endpoints, ensure you set the headers correctly.
 HEADERS: 
 ```
 Authorization: Bearer <YOUR_ACCESS_TOKEN>
