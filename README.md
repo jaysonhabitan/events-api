@@ -1,5 +1,5 @@
 ## Event Management API Repository
----
+
 #### About the Application:
 This is a REST API application for managing `events`. You could `CREATE`, `READ`, `UPDATE`, and `DELETE` an `event` data within the application.
 
