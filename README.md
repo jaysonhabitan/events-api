@@ -120,15 +120,9 @@ Content-Type: application/json
 Method: `GET` \
 End point:  `/api/v1/events` \
 Available query param filters:
-* ```from```  
-  \ --Should be in YYYY-MM-DD HH:MM format
-  \ -- ex. from=2020-01-01 00:00
-* ```to```
-  \ -- Should be in YYYY-MM-DD HH:MM format
-  \ -- ex. to=2020-01-01 00:00
-* ```invitees```
-  \ -- Should be a string of user_ids separated by a comma (,)
-  \ -- ex. invitees=1,2,3 
+* ```from``` - Should be in YYYY-MM-DD HH:MM format (ex. from=2020-01-01 00:00).
+* ```to``` - Should be in YYYY-MM-DD HH:MM format (ex. to=2020-01-01 00:00).
+* ```invitees``` - Should be a string of user_ids separated by a comma (,) (ex. invitees=1,2,3 ).
 
 Response: 
 ```sh
