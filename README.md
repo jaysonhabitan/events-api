@@ -72,8 +72,8 @@ Assuming that you already have a running development server, we can now use it a
 Before we can call any API endpoints, we must first log in using valid credentials. We may log in using the following endpoint: 
 
 ##### Login API:
-Method: `POST` <br />
-End point:  `/api/v1/login`
+Method: `POST`  \
+End point:  `/api/v1/login`  \
 Headers: 
 ```
 Accept: application/json
@@ -111,9 +111,9 @@ Content-Type: application/json
 ```
 ---
 ## Event Resource API
-2.1.`GET ALL EVENTS DATA`
-Method: `GET`
-End point:  `/api/v1/events`
+2.1.`GET ALL EVENTS DATA` \
+Method: `GET` \
+End point:  `/api/v1/events` \
 Available query param filters:
 * ```from```
     -- Should be in YYYY-MM-DD HH:MM format
@@ -123,8 +123,9 @@ Available query param filters:
     -- ex. to=2020-01-01 00:00
 * ```invitees```
     -- Should be a string of user_ids separated by a comma (,)
-    -- ex. invitees=1,2,3
+    -- ex. invitees=1,2,3 
 
+ \
 Response: 
 ```sh
 HTTP_STATUS: 200 OK
@@ -157,9 +158,9 @@ DATA: {
     ]
 }
 ```
-2.2.`GET A SINGLE EVENT DATA`
-Method: `GET`
-End point:  `/api/v1/events/{eventId}`
+2.2.`GET A SINGLE EVENT DATA` \
+Method: `GET` \
+End point:  `/api/v1/events/{eventId}` \
 Response: 
 ```sh
 HTTP_STATUS: 200 OK
@@ -179,9 +180,9 @@ DATA: {
     }
 }
 ```
-2.3.`CREATE AN EVENT`
-Method: `POST`
-End point:  `/api/v1/events`
+2.3.`CREATE AN EVENT` \
+Method: `POST` \
+End point:  `/api/v1/events` \
 Request body:
 ```sh
 {
@@ -213,9 +214,9 @@ DATA: {
     "message": "Event created successfully!"
 }
 ```
-2.3.`UPDATE AN EVENT`
-Method: `PUT`
-End point:  `/api/v1/events/{eventId}`
+2.3.`UPDATE AN EVENT` \
+Method: `PUT` \
+End point:  `/api/v1/events/{eventId}` \
 Request body:
 ```sh
 {
@@ -227,9 +228,9 @@ Request body:
     "invitees": [1,2,3]
 }
 ```
-2.3.`PATCH AN EVENT`
-Method: `PATCH`
-End point:  `/api/v1/events/{eventId}`
+2.3.`PATCH AN EVENT`\
+Method: `PATCH`\
+End point:  `/api/v1/events/{eventId}` \
 Request body:
 ```sh
 {
@@ -244,9 +245,9 @@ DATA: {
     "message": "Event updated successfully."
 }
 ```
-2.3.`DELETE AN EVENT`
-Method: `DELETE`
-End point:  `/api/v1/events/{eventId}`
+2.3.`DELETE AN EVENT` \
+Method: `DELETE` \ 
+End point:  `/api/v1/events/{eventId}` \
 Response: 
 ```sh
 HTTP_STATUS: 200 OK
