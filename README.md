@@ -72,7 +72,7 @@ Assuming that you already have a running development server, we can now use it a
 Before we can call any API endpoints, we must first log in using valid credentials. We may log in using the following endpoint: 
 
 ##### Login API:
-Method: `POST`
+Method: `POST` <br />
 End point:  `/api/v1/login`
 Headers: 
 ```
