@@ -262,15 +262,15 @@ DATA: {}
 ---
 ## Unit Test
 
-#### 1. Setup the unit test .env-testing file
+#### 1. Setup the unit test .env.testing file
 > Before we run the unit test, it is recommended to create a separate .env file for the unit test. But `you can skip this part`, just be aware that it will use your .env database as a default and will surely wipe out your data.
 
-Assuming that you are in the application directory, run the following command in the terminal to create a .env-testing for our unit test:
+Assuming that you are in the application directory, run the following command in the terminal to create a .env.testing for our unit test:
 ```
 # copy environment variables file template
-cp .env .env-testing
+cp .env .env.testing
 ```
-Next, open your newly created .env-testing file and add or modify the following configurations:
+Next, open your newly created .env.testing file and add or modify the following configurations:
 ```sh
 # Database connection
 DB_CONNECTION=sqlite
@@ -284,13 +284,13 @@ DB_PASSWORD=
 APP_TOKEN_NAME="events-api-token"
 ```
 #### 2. Run the unit test
-After setting up the .env-testing file we can now run the following command to run the unit test:
+After setting up the .env.testing file we can now run the following command to run the unit test:
 
 ```sh 
 php artisan test --env=testing
 ```
 
-> Make sure you include the `--env=testing`  flag so that it will use the .env-testing configurations, if not it will use your .env configuration and might wipe out your data.
+> Make sure you include the `--env=testing`  flag so that it will use the .env.testing configurations, if not it will use your .env configuration and might wipe out your data.
 ---
 
 ## Application models and definitions
