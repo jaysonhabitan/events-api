@@ -47,6 +47,6 @@ class EventsFilter extends ApiFilter
      * that corresponds to a model.
      */
     protected $relationships = [
-        'users' => 'BelongToMany',
+        'invitees' => 'users',
     ];
 }

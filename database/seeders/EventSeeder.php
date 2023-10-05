@@ -23,7 +23,7 @@ class EventSeeder extends Seeder
                 $userIds = User::all()->pluck('id');
                 for ($i=0; $i <= 10 ; $i++) {
                     $event = Event::factory()->create();
-                    $event->sync($userIds);
+                    $event->users()->sync($userIds->random(3));
                 }
             });
         } catch (Exception $e) {
