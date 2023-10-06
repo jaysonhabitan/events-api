@@ -301,21 +301,21 @@ php artisan test --env=testing
 ```
 ├── app 
 │   ├── Console
-│   ├── Enum - This is where the enumarables are stored.
+│   ├── Enum - This is where the enumerables are stored.
 │   ├── Exceptions
-│   ├── Filters - This is where the filter function for GET request are stored.
+│   ├── Filters - This is where the filter function for GET requests is stored.
 │   │   └── V1
 │   ├── Http
 │   │   ├── Controllers
-│   │   │   └── Api  - This is where  the  resources controllers are stored.
+│   │   │   └── Api  - This is where  the  resource controllers are stored.
 │   │   │       └── V1
 │   │   ├── Middleware
 │   │   ├── Requests - This is where the request validations are stored.
 │   │   │   └── V1
-│   │   └── Resources - This is where the models resource format are stored.
+│   │   └── Resources - This is where the model's resource format is stored.
 │   │       └── V1
 │   ├── Models
-│   ├── Observers - I added an observer for detaching the many-many relationship for event model when deleting an event data.
+│   ├── Observers - I added an observer for detaching the many-many relationship for the event model when deleting event data.
 │   ├── Providers
 │   ├── Services -  This is  where the model's service(s) are stored.
 │   │   └── V1
