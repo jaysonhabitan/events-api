@@ -9,7 +9,7 @@ use App\Http\Resources\V1\EventResourceCollection;
 use App\Tools\EndProcess;
 use App\Models\Event;
 use App\Models\Frequency;
-use Exception;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
@@ -30,6 +30,31 @@ class EventService
     {
         $frequency = Frequency::where('name', $request->frequency)->firstOrFail();
         $request->merge(['frequency_id' => $frequency->id]);
+
+        $usersWithConflictSchedule = [];
+        $userService = new UserService();
+
+        foreach ($request->invitees as $invitee) {
+            $user = User::findOrFail($invitee);
+
+            $hasConflict = $userService->checkEvents(
+                $user,
+                $request->duration ?? 0,
+                $request->frequency_id,
+                $request->start_date_time,
+                $request->end_date_time,
+            );
+
+            if ($hasConflict) $usersWithConflictSchedule[] = $invitee;
+        }
+
+        if (count($usersWithConflictSchedule) > 0) {
+            $userList = implode(', ',  $usersWithConflictSchedule);
+
+            return EndProcess::failed([
+                'message' => ProcessResponse::EVENT_SCHEDULE_CONFLICT . " {$userList}"
+            ]);
+        }
 
         $event = Event::create($request->except(['frequency', 'invitees']));
 
@@ -60,6 +85,32 @@ class EventService
         if ($request->has('frequency')) {
             $frequency = Frequency::where('name', $request->frequency)->firstOrFail();
             $request->merge(['frequency_id' => $frequency->id]);
+        }
+
+        $usersWithConflictSchedule = [];
+        $userService = new UserService();
+
+        $invitees = $request->invitees ?? $event->users()->pluck('user_id')->all();
+        foreach ($invitees as $invitee) {
+            $user = User::findOrFail($invitee);
+
+            $hasConflict = $userService->checkEvents(
+                $user,
+                $request->duration ?? $event->duration,
+                $request->frequency_id ?? $event->frequency_id,
+                $request->start_date_time,
+                $request->end_date_time,
+            );
+
+            if ($hasConflict) $usersWithConflictSchedule[] = $invitee;
+        }
+
+        if (count($usersWithConflictSchedule) > 0) {
+            $userList = implode(', ',  $usersWithConflictSchedule);
+
+            return EndProcess::failed([
+                'message' => ProcessResponse::EVENT_SCHEDULE_CONFLICT . " {$userList}"
+            ]);
         }
 
         if ($event->update($request->except(['frequency', 'invitees']))) {

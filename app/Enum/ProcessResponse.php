@@ -16,4 +16,6 @@ class ProcessResponse
     CONST EVENT_UPDATE_FAILED = 'Failed to update event.';
     CONST EVENT_FETCH_FAILED = 'Failed to fetch events.';
     CONST EVENT_NOT_FOUND = 'Event does not exists.';
+
+    CONST EVENT_SCHEDULE_CONFLICT =  'The following user_id(s) has a conflicting schedule:';
 }

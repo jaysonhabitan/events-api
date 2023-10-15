@@ -20,7 +20,7 @@ class EventFactory extends Factory
             'event_name' => $this->faker->name(),
             'frequency_id' => $this->faker->numberBetween(Frequency::ONCE_OFF_ID, Frequency::MONTHLY_ID),
             'start_date_time' => date('Y-m-d H:i', strtotime("+{$days} days", strtotime('2023-01-01 00:00'))),
-            'end_date_time' => date('Y-m-d H:i', strtotime("+{$days} days", strtotime('2023-02-01 00:00'))),
+            'end_date_time' => null,
             'duration' => $this->faker->numberBetween(0, 60),
         ];
     }
@@ -37,6 +37,56 @@ class EventFactory extends Factory
         return $this->state(function (array $_) use ($id) {
             return [
                 'frequency_id' => $id
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the start_date_time should be user-defined.
+     *
+     * @param string $startDateTime
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withStartDateTime(string $startDateTime)
+    {
+        return $this->state(function (array $_) use ($startDateTime) {
+            return [
+                'start_date_time' => $startDateTime
+            ];
+        });
+    }
+
+
+    /**
+     * Indicate that the end_date_time should be user-defined.
+     *
+     * @param string $endDateTime
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withEndDateTime(string $endDateTime)
+    {
+        return $this->state(function (array $_) use ($endDateTime) {
+            return [
+                'end_date_time' => $endDateTime
+            ];
+        });
+    }
+
+
+    /**
+     * Indicate that the duration should be user-defined.
+     *
+     * @param int $duration
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withDuration(string $duration)
+    {
+        return $this->state(function (array $_) use ($duration) {
+            return [
+                'duration' => $duration
             ];
         });
     }

@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -177,8 +179,8 @@ class EventControllerTest extends TestCase
 
         $eventName = $this->faker->name();
         $frequency = EnumFrequency::ONCE_OFF_NAME;
-        $startDateTime = $this->faker->dateTime()->format('Y-m-d H:i');
-        $endDateTime = $this->faker->dateTime()->format('Y-m-d H:i');
+        $startDateTime = '2023-01-01 01:00';
+        $endDateTime = null;
         $duration = $this->faker->numberBetween(0, 60);
         $invitees = [$user->id];
 
@@ -214,6 +216,39 @@ class EventControllerTest extends TestCase
         ])->assertDatabaseHas('event_user', [
             'user_id' => $user->id
         ]);
+    }
+
+    /**
+     * Test if authenticated user cannot create an event
+     * if new schedule is conflicting with other event(s) schedule.
+     *
+     * @return void
+     */
+    public function test_authenticated_api_user_cannot_create_an_even_if_its_conflicting()
+    {
+        Sanctum::actingAs($this->apiUser);
+
+        $event = Event::factory()
+            ->withStartDateTime('2023-09-23 10:00')
+            ->withDuration(120)
+            ->withFrequencyId(EnumFrequency::WEEKLY_ID)
+            ->has(User::factory())
+            ->create();
+
+        $eventName = $this->faker->name();
+        $frequency = EnumFrequency::ONCE_OFF_NAME;
+        $startDateTime = '2023-09-30 11:00';
+        $invitees = $event->users()->pluck('user_id')->all();
+
+        $payload = [
+            'eventName' => $eventName,
+            'frequency' => $frequency,
+            'startDateTime' => $startDateTime,
+            'invitees' => $invitees
+        ];
+
+        $response = $this->postJson($this->apiEndpoint, $payload);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
     }
 
      /**
@@ -255,8 +290,8 @@ class EventControllerTest extends TestCase
 
         $eventName = $this->faker->name();
         $frequency = EnumFrequency::ONCE_OFF_NAME;
-        $startDateTime = $this->faker->dateTime()->format('Y-m-d H:i');
-        $endDateTime = $this->faker->dateTime()->format('Y-m-d H:i');
+        $startDateTime = '2023-10-30 11:00';
+        $endDateTime = null;
         $duration = $this->faker->numberBetween(0, 60);
         $invitees = [$user->id];
 
@@ -273,6 +308,7 @@ class EventControllerTest extends TestCase
         $response->assertOk();
 
         $this->assertDatabaseHas('events', [
+            'id' => $event->id,
             'event_name' => $eventName,
             'frequency_id' => EnumFrequency::ONCE_OFF_ID,
             'start_date_time' => $startDateTime,

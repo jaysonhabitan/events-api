@@ -34,9 +34,9 @@ class CreateEventRequest extends FormRequest
         return [
             'eventName' => 'required|string',
             'frequency' => ['required', 'exists:frequencies,name', Rule::in($allowedFrequencies)],
-            'startDateTime' => 'required|date|date_format:Y-m-d H:i',
-            'endDateTime' => 'nullable|date|date_format:Y-m-d H:i',
-            'duration' => 'nullable|integer|between:0,60',
+            'startDateTime' => 'required|date|date_format:Y-m-d H:i|before:endDateTime',
+            'endDateTime' => 'nullable|date|date_format:Y-m-d H:i|after:startDateTime',
+            'duration' => 'nullable|integer|between:0,480',
             'invitees' => 'nullable|array',
             'invitees.*' => 'exists:users,id'
         ];
@@ -57,6 +57,9 @@ class CreateEventRequest extends FormRequest
         }
         if ($this->endDateTime) {
             $this->merge(['end_date_time' => $this->endDateTime]);
+        }
+        if($this->frequency === Frequency::ONCE_OFF_NAME) {
+            $this->merge(['end_date_time' => null]);
         }
     }
 }

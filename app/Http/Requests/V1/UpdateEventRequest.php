@@ -35,9 +35,9 @@ class UpdateEventRequest extends FormRequest
             return [
                 'eventName' => 'required|string',
                 'frequency' => ['required', 'exists:frequencies,name', Rule::in($allowedFrequencies)],
-                'startDateTime' => 'required|date|date_format:Y-m-d H:i',
-                'endDateTime' => 'nullable|date|date_format:Y-m-d H:i',
-                'duration' => 'nullable|integer|between:0,60',
+                'startDateTime' => 'required|date|date_format:Y-m-d H:i|before:endDateTime',
+                'endDateTime' => 'nullable|date|date_format:Y-m-d H:i|after:startDateTime',
+                'duration' => 'nullable|integer|between:0,480',
                 'invitees' => 'nullable|array',
                 'invitees.*' => 'required|exists:users,id'
             ];
@@ -45,9 +45,9 @@ class UpdateEventRequest extends FormRequest
             return [
                 'eventName' => 'sometimes|required|string',
                 'frequency' => ['sometimes', 'required', 'exists:frequencies,name', Rule::in($allowedFrequencies)],
-                'startDateTime' => 'sometimes|required|date|date_format:Y-m-d H:i',
-                'endDateTime' => 'sometimes|nullable|date|date_format:Y-m-d H:i',
-                'duration' => 'sometimes|nullable|integer|between:0,60',
+                'startDateTime' => 'sometimes|required|date|date_format:Y-m-d H:i|before:endDateTime',
+                'endDateTime' => 'sometimes|nullable|date|date_format:Y-m-d H:i|after:startDateTime',
+                'duration' => 'sometimes|nullable|integer|between:0,480',
                 'invitees' => 'sometimes|nullable|array',
                 'invitees.*' => 'sometimes|required|exists:users,id'
             ];
