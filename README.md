@@ -233,25 +233,7 @@ Request body:
 }
 ```
 
-2.5.`PATCH AN EVENT`\
-Method: `PATCH`\
-End point:  `/api/v1/events/{eventId}` \
-Request body:
-```sh
-{
-    "eventName": "test patch event"
-}
-```
-Response: 
-```sh
-HTTP_STATUS: 200 OK
-
-DATA: {
-    "message": "Event updated successfully."
-}
-```
-
-2.6.`DELETE AN EVENT` 
+2.5.`DELETE AN EVENT` 
 Method: `DELETE` \ 
 End point:  `/api/v1/events/{eventId}` \
 Response: 
