@@ -31,27 +31,15 @@ class UpdateEventRequest extends FormRequest
             Frequency::MONTHLY_NAME,
         ];
 
-        if ($this->isMethod('PUT')) {
-            return [
-                'eventName' => 'required|string',
-                'frequency' => ['required', 'exists:frequencies,name', Rule::in($allowedFrequencies)],
-                'startDateTime' => 'required|date|date_format:Y-m-d H:i|before:endDateTime',
-                'endDateTime' => 'nullable|date|date_format:Y-m-d H:i|after:startDateTime',
-                'duration' => 'nullable|integer|between:0,480',
-                'invitees' => 'nullable|array',
-                'invitees.*' => 'required|exists:users,id'
-            ];
-        } else {
-            return [
-                'eventName' => 'sometimes|required|string',
-                'frequency' => ['sometimes', 'required', 'exists:frequencies,name', Rule::in($allowedFrequencies)],
-                'startDateTime' => 'sometimes|required|date|date_format:Y-m-d H:i|before:endDateTime',
-                'endDateTime' => 'sometimes|nullable|date|date_format:Y-m-d H:i|after:startDateTime',
-                'duration' => 'sometimes|nullable|integer|between:0,480',
-                'invitees' => 'sometimes|nullable|array',
-                'invitees.*' => 'sometimes|required|exists:users,id'
-            ];
-        }
+        return [
+            'eventName' => 'required|string',
+            'frequency' => ['required', 'exists:frequencies,name', Rule::in($allowedFrequencies)],
+            'startDateTime' => 'required|date|date_format:Y-m-d H:i|before:endDateTime',
+            'endDateTime' => 'nullable|date|date_format:Y-m-d H:i|after:startDateTime',
+            'duration' => 'nullable|integer|between:0,480',
+            'invitees' => 'nullable|array',
+            'invitees.*' => 'required|exists:users,id'
+        ];
     }
 
     /**
@@ -69,6 +57,9 @@ class UpdateEventRequest extends FormRequest
         }
         if ($this->endDateTime) {
             $this->merge(['end_date_time' => $this->endDateTime]);
+        }
+        if($this->frequency === Frequency::ONCE_OFF_NAME) {
+            $this->merge(['end_date_time' => null]);
         }
     }
 }

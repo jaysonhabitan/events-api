@@ -31,22 +31,13 @@ class EventService
         $frequency = Frequency::where('name', $request->frequency)->firstOrFail();
         $request->merge(['frequency_id' => $frequency->id]);
 
-        $usersWithConflictSchedule = [];
-        $userService = new UserService();
-
-        foreach ($request->invitees as $invitee) {
-            $user = User::findOrFail($invitee);
-
-            $hasConflict = $userService->checkEvents(
-                $user,
-                $request->duration ?? 0,
-                $request->frequency_id,
-                $request->start_date_time,
-                $request->end_date_time,
-            );
-
-            if ($hasConflict) $usersWithConflictSchedule[] = $invitee;
-        }
+        $usersWithConflictSchedule = $this->checkUsersEvents(
+            $request->invitees,
+            $request->duration,
+            $request->frequency_id,
+            $request->start_date_time,
+            $request->end_date_time,
+        );
 
         if (count($usersWithConflictSchedule) > 0) {
             $userList = implode(', ',  $usersWithConflictSchedule);
@@ -87,23 +78,13 @@ class EventService
             $request->merge(['frequency_id' => $frequency->id]);
         }
 
-        $usersWithConflictSchedule = [];
-        $userService = new UserService();
-
-        $invitees = $request->invitees ?? $event->users()->pluck('user_id')->all();
-        foreach ($invitees as $invitee) {
-            $user = User::findOrFail($invitee);
-
-            $hasConflict = $userService->checkEvents(
-                $user,
-                $request->duration ?? $event->duration,
-                $request->frequency_id ?? $event->frequency_id,
-                $request->start_date_time,
-                $request->end_date_time,
-            );
-
-            if ($hasConflict) $usersWithConflictSchedule[] = $invitee;
-        }
+        $usersWithConflictSchedule = $this->checkUsersEvents(
+            $request->invitees ?? [],
+            $request->duration ?? 0,
+            $request->frequency_id,
+            $request->start_date_time,
+            $request->end_date_time,
+        );
 
         if (count($usersWithConflictSchedule) > 0) {
             $userList = implode(', ',  $usersWithConflictSchedule);
@@ -169,5 +150,44 @@ class EventService
             return EndProcess::failed();
 
         return EndProcess::success();
+    }
+
+    /**
+     * Checks the user(s) event(s) if
+     * they have a  conflicting event(s)
+     *
+     * @param  array invitees
+     * @param  int $duration
+     * @param  int $frequencyId
+     * @param  string $startDateTime
+     * @param  string|null $endDateTime
+     *
+     * @return array
+     */
+    protected function checkUsersEvents(
+        $invitees,
+        $duration = 0,
+        $frequencyId,
+        $startDateTime,
+        $endDateTime = null
+    ): array {
+        $usersWithConflictSchedule = [];
+        $userService = new UserService();
+
+        foreach ($invitees as $invitee) {
+            $user = User::findOrFail($invitee);
+
+            $hasConflict = $userService->checkEvents(
+                $user,
+                $duration,
+                $frequencyId,
+                $startDateTime,
+                $endDateTime
+            );
+
+            if ($hasConflict) $usersWithConflictSchedule[] = $invitee;
+        }
+
+        return $usersWithConflictSchedule;
     }
 }

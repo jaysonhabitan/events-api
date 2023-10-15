@@ -74,10 +74,10 @@ class EventControllerTest extends TestCase
     {
         $payload = [
             'eventName' => $this->faker->name(),
+            'duration' => $this->faker->numberBetween(0, 60),
             'frequency' => EnumFrequency::ONCE_OFF_NAME,
             'startDateTime' => $this->faker->dateTime()->format('Y-m-d H:i'),
             'endDateTime' => $this->faker->dateTime()->format('Y-m-d H:i'),
-            'duration' => $this->faker->numberBetween(0, 60)
         ];
 
         $response = $this->postJson($this->apiEndpoint, $payload);
@@ -115,25 +115,6 @@ class EventControllerTest extends TestCase
         ];
 
         $response = $this->putJson($this->apiEndpoint. '/' .$event->id, $payload);
-        $response->assertUnauthorized();
-    }
-
-    /**
-     * Test if unauthenticated user cannot patch an event.
-     *
-     * @return void
-     */
-    public function test_unauthenticated_api_user_cannot_patch_event()
-    {
-        $event = Event::factory()->create();
-
-        $eventName = $this->faker->name();
-
-        $payload = [
-            'eventName' => $eventName,
-        ];
-
-        $response = $this->patchJson($this->apiEndpoint. '/' .$event->id, $payload);
         $response->assertUnauthorized();
     }
 
@@ -236,18 +217,59 @@ class EventControllerTest extends TestCase
             ->create();
 
         $eventName = $this->faker->name();
+        $duration = $this->faker->numberBetween(0, 60);
         $frequency = EnumFrequency::ONCE_OFF_NAME;
         $startDateTime = '2023-09-30 11:00';
         $invitees = $event->users()->pluck('user_id')->all();
 
         $payload = [
             'eventName' => $eventName,
+            'duration' => $duration,
             'frequency' => $frequency,
             'startDateTime' => $startDateTime,
             'invitees' => $invitees
         ];
 
         $response = $this->postJson($this->apiEndpoint, $payload);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * Test if authenticated user cannot create an event
+     * if new schedule is conflicting with other event(s) schedule.
+     *
+     * @return void
+     */
+    public function test_authenticated_api_user_cannot_update_an_even_if_its_conflicting()
+    {
+        Sanctum::actingAs($this->apiUser);
+        $user = User::factory()->create();
+
+        $firstEvent = Event::factory()
+            ->withStartDateTime('2023-09-23 10:00')
+            ->withDuration(120)
+            ->withFrequencyId(EnumFrequency::WEEKLY_ID)
+            ->create();
+
+        $firstEvent->users()->attach($user);
+
+        $eventName = $this->faker->name();
+        $frequency = EnumFrequency::ONCE_OFF_NAME;
+        $startDateTime = '2023-09-30 11:00';
+        $endDateTime = null;
+        $duration = 30;
+        $invitees = [$user->id];
+
+        $payload = [
+            'eventName' => $eventName,
+            'frequency' => $frequency,
+            'startDateTime' => $startDateTime,
+            'endDateTime' => $endDateTime,
+            'duration' => $duration,
+            'invitees' => $invitees
+        ];
+
+        $response = $this->putJson($this->apiEndpoint. '/' .$firstEvent->id, $payload);
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
     }
 
@@ -316,32 +338,6 @@ class EventControllerTest extends TestCase
             'duration' => $duration
         ])->assertDatabaseHas('event_user', [
             'user_id' => $user->id
-        ]);
-    }
-
-    /**
-     * Test if authenticated user can patch an event.
-     *
-     * @return void
-     */
-    public function test_authenticated_api_user_can_patch_event()
-    {
-        Sanctum::actingAs($this->apiUser);
-
-        $event = Event::factory()->create();
-
-        $eventName = $this->faker->name();
-
-        $payload = [
-            'eventName' => $eventName,
-        ];
-
-        $response = $this->patchJson($this->apiEndpoint. '/' .$event->id, $payload);
-        $response->assertOk();
-
-        $this->assertDatabaseHas('events', [
-            'id' => $event->id,
-            'event_name' => $eventName,
         ]);
     }
 

@@ -15,9 +15,10 @@ use App\Tools\Event\WeeklyChecker;
 class UserService
 {
     /**
-     * Check a given user if it has a conflicting issue.
+     * Check a given user if it has a conflicting event issue.
      *
      * @param  Use $user
+     * @param  int $duration
      * @param  int $frequencyId
      * @param  string $startDateTime
      * @param  string|null $endDateTime
